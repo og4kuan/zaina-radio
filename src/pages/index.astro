@@ -63,7 +63,7 @@ const [featuredShow, ...archiveShows] = shows;
             <div class="featured-grid">
               <img
                 class="show-cover"
-                src={`/images/shows/${featuredShow.coverFileName}`}
+                src={featuredShow.cover}
                 alt={`${featuredShow.title} cover`}
                 width="600"
                 height="600"
@@ -112,7 +112,7 @@ const [featuredShow, ...archiveShows] = shows;
             <article id={show.slug} class="show-card">
               <img
                 class="show-cover"
-                src={`/images/shows/${show.coverFileName}`}
+                src={show.cover}
                 alt={`${show.title} cover`}
                 width="400"
                 height="400"

@@ -8,7 +8,7 @@ export interface Show {
   tags: string[];
   description: string;
   audioUrl: string;
-  coverFileName: string;
+  cover: string;
 }
 
 export const shows: Show[] = [
@@ -28,7 +28,7 @@ export const shows: Show[] = [
     description:
       "一段围绕碎拍律动展开的开场选集，从 UK underground 的鼓组语言出发，探索电子音乐里不规则但有生命力的节奏。",
     audioUrl: "/audio/zr001.mp3",
-    coverFileName: "zr001.jpg",
+    cover: "/images/shows/zr001.png",
   },
   {
     number: "ZR002",
@@ -46,7 +46,7 @@ export const shows: Show[] = [
     description:
       "围绕部落打击乐、低频与有机律动展开的选曲，探索传统节奏语言与当代电子声音之间的连接。",
     audioUrl: "/audio/zr002.mp3",
-    coverFileName: "zr002.jpg",
+    cover: "/images/shows/zr002.png",
   },
   {
     number: "ZR003",
@@ -64,7 +64,6 @@ export const shows: Show[] = [
     description:
       "一段为深夜准备的声音旅程，在 ambient、dub techno 与实验电子之间缓慢移动。",
     audioUrl: "/audio/zr003.mp3",
-    coverFileName: "zr003.jpg",
+    cover: "/images/shows/zr003.png",
   },
 ];
-
