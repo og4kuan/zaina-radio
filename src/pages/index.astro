@@ -1,4 +1,7 @@
 ---
+import { shows } from "../data/shows";
+
+const [featuredShow, ...archiveShows] = shows;
 ---
 
 <!doctype html>
@@ -38,32 +41,66 @@
           让本地认识本地，让你们认识我们。
         </h2>
 
-        <a href="#featured-show">Listen to latest show</a>
+        {
+          featuredShow && (
+            <a href={`#${featuredShow.slug}`}>
+              Listen to latest show
+            </a>
+          )
+        }
       </section>
 
-      <section id="featured-show">
-        <header>
-          <p>Featured Show</p>
-          <p>ZR001</p>
-          <h2>Broken Signals / Volume 01</h2>
-        </header>
+      {
+        featuredShow && (
+          <section id={featuredShow.slug}>
+            <header>
+              <p>Featured Show</p>
+              <p>{featuredShow.number}</p>
+              <h2>{featuredShow.title}</h2>
+            </header>
 
-        <p><strong>DJ / Selector:</strong> Zaina Radio</p>
+            <img
+              src={`/images/shows/${featuredShow.coverFileName}`}
+              alt={`${featuredShow.title} cover`}
+              width="600"
+              height="600"
+            />
 
-        <p>
-          一段围绕碎拍律动展开的开场选集，从 UK underground
-          的鼓组语言出发，探索电子音乐里不规则但有生命力的节奏。
-        </p>
+            <p>
+              <strong>DJ / Selector:</strong> {featuredShow.dj}
+            </p>
 
-        <p><strong>Format:</strong> Studio Mix</p>
+            <p>
+              <strong>Date:</strong>{" "}
+              <time datetime={featuredShow.date}>
+                {featuredShow.date}
+              </time>
+            </p>
 
-        <ul aria-label="Show tags">
-          <li>Broken Beat</li>
-          <li>UK Garage Roots</li>
-          <li>Broken Techno</li>
-          <li>Jazz-infused Electronic</li>
-        </ul>
-      </section>
+            <p>
+              <strong>Duration:</strong> {featuredShow.duration}
+            </p>
+
+            <p>{featuredShow.description}</p>
+
+            <ul aria-label={`${featuredShow.title} tags`}>
+              {
+                featuredShow.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))
+              }
+            </ul>
+
+            <audio
+              controls
+              preload="none"
+              src={featuredShow.audioUrl}
+            >
+              你的浏览器不支持音频播放。
+            </audio>
+          </section>
+        )
+      }
 
       <section id="shows">
         <header>
@@ -71,43 +108,51 @@
           <h2>Shows</h2>
         </header>
 
-        <article>
-          <p>ZR002</p>
-          <h3>Ritual Frequencies</h3>
+        {
+          archiveShows.map((show) => (
+            <article id={show.slug}>
+              <img
+                src={`/images/shows/${show.coverFileName}`}
+                alt={`${show.title} cover`}
+                width="400"
+                height="400"
+                loading="lazy"
+              />
 
-          <p><strong>DJ / Selector:</strong> TBA</p>
+              <p>{show.number}</p>
+              <h3>{show.title}</h3>
 
-          <p>
-            <strong>Date:</strong>
-            <time datetime="2026-08-01">August 1, 2026 — Placeholder</time>
-          </p>
+              <p>
+                <strong>DJ / Selector:</strong> {show.dj}
+              </p>
 
-          <ul aria-label="Show tags">
-            <li>Tribal Percussion</li>
-            <li>Organic House</li>
-            <li>Afro Electronic</li>
-            <li>Dub</li>
-          </ul>
-        </article>
+              <p>
+                <strong>Date:</strong>{" "}
+                <time datetime={show.date}>
+                  {show.date}
+                </time>
+              </p>
 
-        <article>
-          <p>ZR003</p>
-          <h3>After Midnight Architecture</h3>
+              <p>
+                <strong>Duration:</strong> {show.duration}
+              </p>
 
-          <p><strong>DJ / Selector:</strong> TBA</p>
+              <p>{show.description}</p>
 
-          <p>
-            <strong>Date:</strong>
-            <time datetime="2026-08-15">August 15, 2026 — Placeholder</time>
-          </p>
+              <ul aria-label={`${show.title} tags`}>
+                {
+                  show.tags.map((tag) => (
+                    <li>{tag}</li>
+                  ))
+                }
+              </ul>
 
-          <ul aria-label="Show tags">
-            <li>Ambient</li>
-            <li>Dub Techno</li>
-            <li>Experimental</li>
-            <li>Leftfield</li>
-          </ul>
-        </article>
+              <audio controls preload="none" src={show.audioUrl}>
+                你的浏览器不支持音频播放。
+              </audio>
+            </article>
+          ))
+        }
       </section>
 
       <section id="about">
