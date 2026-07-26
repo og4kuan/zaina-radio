@@ -1,5 +1,6 @@
 ---
 import { shows } from "../data/shows";
+import "../styles/global.css";
 
 const [featuredShow, ...archiveShows] = shows;
 ---
@@ -19,7 +20,7 @@ const [featuredShow, ...archiveShows] = shows;
   </head>
 
   <body>
-    <header>
+    <header class="site-header">
       <h1>
         <a href="#home">Zaina Radio</a>
       </h1>
@@ -32,9 +33,9 @@ const [featuredShow, ...archiveShows] = shows;
       </nav>
     </header>
 
-    <main>
-      <section id="home">
-        <p>Independent Radio from Dongguan</p>
+    <main class="site-main">
+      <section id="home" class="hero">
+        <p class="eyebrow">Independent Radio from Dongguan</p>
 
         <h2>
           记录 broken rhythms、tribal percussion 与地下电子声音的独立电台。<br />
@@ -43,7 +44,7 @@ const [featuredShow, ...archiveShows] = shows;
 
         {
           featuredShow && (
-            <a href={`#${featuredShow.slug}`}>
+            <a class="button" href={`#${featuredShow.slug}`}>
               Listen to latest show
             </a>
           )
@@ -52,66 +53,65 @@ const [featuredShow, ...archiveShows] = shows;
 
       {
         featuredShow && (
-          <section id={featuredShow.slug}>
-            <header>
-              <p>Featured Show</p>
-              <p>{featuredShow.number}</p>
+          <section id={featuredShow.slug} class="featured-show">
+            <header class="section-heading">
+              <p class="eyebrow">Featured Show</p>
+              <p class="show-number">{featuredShow.number}</p>
               <h2>{featuredShow.title}</h2>
             </header>
 
-            <img
-              src={`/images/shows/${featuredShow.coverFileName}`}
-              alt={`${featuredShow.title} cover`}
-              width="600"
-              height="600"
-            />
+            <div class="featured-grid">
+              <img
+                class="show-cover"
+                src={`/images/shows/${featuredShow.coverFileName}`}
+                alt={`${featuredShow.title} cover`}
+                width="600"
+                height="600"
+              />
 
-            <p>
-              <strong>DJ / Selector:</strong> {featuredShow.dj}
-            </p>
+              <div class="show-details">
+                <dl class="show-meta">
+                  <div>
+                    <dt>DJ / Selector</dt>
+                    <dd>{featuredShow.dj}</dd>
+                  </div>
+                  <div>
+                    <dt>Date</dt>
+                    <dd><time datetime={featuredShow.date}>{featuredShow.date}</time></dd>
+                  </div>
+                  <div>
+                    <dt>Duration</dt>
+                    <dd>{featuredShow.duration}</dd>
+                  </div>
+                </dl>
 
-            <p>
-              <strong>Date:</strong>{" "}
-              <time datetime={featuredShow.date}>
-                {featuredShow.date}
-              </time>
-            </p>
+                <p class="show-description">{featuredShow.description}</p>
 
-            <p>
-              <strong>Duration:</strong> {featuredShow.duration}
-            </p>
+                <ul class="tag-list" aria-label={`${featuredShow.title} tags`}>
+                  {featuredShow.tags.map((tag) => <li>{tag}</li>)}
+                </ul>
 
-            <p>{featuredShow.description}</p>
-
-            <ul aria-label={`${featuredShow.title} tags`}>
-              {
-                featuredShow.tags.map((tag) => (
-                  <li>{tag}</li>
-                ))
-              }
-            </ul>
-
-            <audio
-              controls
-              preload="none"
-              src={featuredShow.audioUrl}
-            >
-              你的浏览器不支持音频播放。
-            </audio>
+                <audio controls preload="none" src={featuredShow.audioUrl}>
+                  你的浏览器不支持音频播放。
+                </audio>
+              </div>
+            </div>
           </section>
         )
       }
 
-      <section id="shows">
-        <header>
-          <p>Radio Archive</p>
+      <section id="shows" class="shows-section">
+        <header class="section-heading">
+          <p class="eyebrow">Radio Archive</p>
           <h2>Shows</h2>
         </header>
 
-        {
-          archiveShows.map((show) => (
-            <article id={show.slug}>
+        <div class="shows-grid">
+          {
+            archiveShows.map((show) => (
+            <article id={show.slug} class="show-card">
               <img
+                class="show-cover"
                 src={`/images/shows/${show.coverFileName}`}
                 alt={`${show.title} cover`}
                 width="400"
@@ -119,45 +119,35 @@ const [featuredShow, ...archiveShows] = shows;
                 loading="lazy"
               />
 
-              <p>{show.number}</p>
-              <h3>{show.title}</h3>
+              <div class="show-card__body">
+                <p class="show-number">{show.number}</p>
+                <h3>{show.title}</h3>
 
-              <p>
-                <strong>DJ / Selector:</strong> {show.dj}
-              </p>
+                <dl class="show-meta">
+                  <div><dt>DJ</dt><dd>{show.dj}</dd></div>
+                  <div><dt>Date</dt><dd><time datetime={show.date}>{show.date}</time></dd></div>
+                  <div><dt>Duration</dt><dd>{show.duration}</dd></div>
+                </dl>
 
-              <p>
-                <strong>Date:</strong>{" "}
-                <time datetime={show.date}>
-                  {show.date}
-                </time>
-              </p>
+                <p class="show-description">{show.description}</p>
 
-              <p>
-                <strong>Duration:</strong> {show.duration}
-              </p>
+                <ul class="tag-list" aria-label={`${show.title} tags`}>
+                  {show.tags.map((tag) => <li>{tag}</li>)}
+                </ul>
 
-              <p>{show.description}</p>
-
-              <ul aria-label={`${show.title} tags`}>
-                {
-                  show.tags.map((tag) => (
-                    <li>{tag}</li>
-                  ))
-                }
-              </ul>
-
-              <audio controls preload="none" src={show.audioUrl}>
-                你的浏览器不支持音频播放。
-              </audio>
+                <audio controls preload="none" src={show.audioUrl}>
+                  你的浏览器不支持音频播放。
+                </audio>
+              </div>
             </article>
-          ))
-        }
+            ))
+          }
+        </div>
       </section>
 
-      <section id="about">
-        <header>
-          <p>Who We Are</p>
+      <section id="about" class="text-section">
+        <header class="section-heading">
+          <p class="eyebrow">Who We Are</p>
           <h2>About</h2>
         </header>
 
@@ -182,9 +172,9 @@ const [featuredShow, ...archiveShows] = shows;
         </p>
       </section>
 
-      <section id="contact">
-        <header>
-          <p>Get in Touch</p>
+      <section id="contact" class="text-section contact-section">
+        <header class="section-heading">
+          <p class="eyebrow">Get in Touch</p>
           <h2>Contact</h2>
         </header>
 
@@ -213,7 +203,7 @@ const [featuredShow, ...archiveShows] = shows;
       </section>
     </main>
 
-    <footer>
+    <footer class="site-footer">
       <p>© 2026 Zaina Radio. Independent and self-operated.</p>
     </footer>
   </body>
